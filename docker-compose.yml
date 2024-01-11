@@ -8,7 +8,7 @@ services:
         - alpine:latest
     image: sheldonrobinson/openfire:wood-dragon.1
     restart: always
-    container_name: ofkonnek 
+    container_name: openfire 
     ports:
       - "5222:5222/tcp"
       - "5223:5223/tcp"
