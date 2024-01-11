@@ -1,4 +1,4 @@
-# nasqueron/openfire:4.7.5
+# sheldonrobinson/openfire:4.7.5
 
 - [Introduction](#introduction)
   - [Contributing](#contributing)
@@ -49,13 +49,13 @@ If the above recommendations do not help then [report your issue](../../issues/n
 Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/nasqueron/openfire) and is the recommended method of installation.
 
 ```bash
-docker pull sjrobinsonconsulting/openfire:`cat VERSION`
+docker pull sheldonrobinson/openfire:`cat VERSION`
 ```
 
 Alternatively you can build the image yourself.
 
 ```bash
-docker build -t sjrobinsonconsulting/openfire:`cat VERSION` .
+docker build -t sheldonrobinson/openfire:`cat VERSION` .
 ```
 
 ## Quickstart
@@ -63,7 +63,7 @@ docker build -t sjrobinsonconsulting/openfire:`cat VERSION` .
 Start Openfire using:
 
 ``` bash
-docker run -it --rm  -p 3478:3478/tcp -p 3479:3479/tcp -p 5222:5222/tcp -p 5223:5223/tcp -p 5229:5229/tcp -p 5262:5262/tcp -p 5263:5263/tcp -p 5275:5275/tcp -p 5276:5276/tcp -p 7070:7070/tcp -p 7443:7443/tcp -p 7777:7777/tcp -p 9090:9090/tcp -p 9091:9091/tcp -p 5005:5005/tcp -v /srv/docker/openfire/syslog:/var/log -v /srv/docker/openfire/newcerts:/var/lib/openfire/resources/security/hotdeploy -v /srv/docker/openfire/logs:/var/lib/openfire/logs sjrobinsonconsulting/openfire:`cat VERSION`
+docker run -it --rm  -p 3478:3478/tcp -p 3479:3479/tcp -p 5222:5222/tcp -p 5223:5223/tcp -p 5229:5229/tcp -p 5262:5262/tcp -p 5263:5263/tcp -p 5275:5275/tcp -p 5276:5276/tcp -p 7070:7070/tcp -p 7443:7443/tcp -p 7777:7777/tcp -p 9090:9090/tcp -p 9091:9091/tcp -p 5005:5005/tcp -v /srv/docker/openfire/syslog:/var/log -v /srv/docker/openfire/newcerts:/var/lib/openfire/resources/security/hotdeploy -v /srv/docker/openfire/logs:/var/lib/openfire/logs sheldonrobinson/openfire:`cat VERSION`
 ```
 
 *Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
@@ -106,7 +106,7 @@ To upgrade to newer releases:
   1. Download the updated Docker image:
 
   ```bash
-  docker pull sjrobinsonconsulting/openfire:wood-dragon.1
+  docker pull sheldonrobinson/openfire:wood-dragon.1
   ```
 
   2. Stop the currently running image:
@@ -126,7 +126,7 @@ To upgrade to newer releases:
   ```bash
   docker run -name openfire -d \
     [OPTIONS] \
-    sjrobinsonconsulting/openfire:wood-dragon.1
+    sheldonrobinson/openfire:wood-dragon.1
   ```
 
 ## Shell Access

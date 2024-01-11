@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       cache_from: 
         - alpine:latest
-    image: sjrobinsonconsulting/openfire:wood-dragon.1
+    image: sheldonrobinson/openfire:wood-dragon.1
     restart: always
     container_name: ofkonnek 
     ports:
