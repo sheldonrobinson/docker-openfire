@@ -6,9 +6,9 @@ services:
       dockerfile: Dockerfile
       cache_from: 
         - alpine:latest
-    image: sheldonrobinson/openfire:wood-dragon.1
+    image: openfire:latest
     restart: always
-    container_name: openfire 
+    container_name: openfire
     ports:
       - "5222:5222/tcp"
       - "5223:5223/tcp"
@@ -23,6 +23,41 @@ services:
       - "9090:9090/tcp"
       - "9091:9091/tcp"
     volumes:
-      - /srv/docker/openfire/syslog:/var/log
-      - /srv/docker/openfire/logs:${OPENFIRE_HOME}/logs
-      - /srv/docker/openfire/security/hotdeploy:${OPENFIRE_HOME}/resources/security/hotdeploy
+      - ofsyslog:/var/log
+      - oflogs:/var/lib/openfire/logs
+      - ofconf:/var/lib/openfire/conf
+      - oflib:/var/lib/openfire/lib
+      - ofnewcerts:/var/lib/openfire/resources/security/hotdeploy
+
+volumes:
+  ofsyslog:
+    driver: local
+    driver_opts:
+       o: bind
+       type: none
+       device: /srv/docker/openfire/syslog
+  oflogs:
+    driver: local
+    driver_opts:
+       o: bind
+       type: none
+       device: /srv/docker/openfire/logs
+  oflib:
+    driver: local
+    driver_opts:
+       o: bind
+       type: none
+       device: /srv/docker/openfire/lib
+  ofconf:
+    driver: local
+    driver_opts:
+       o: bind
+       type: none
+       device: /srv/docker/openfire/conf
+  ofnewcerts:
+    driver: local
+    driver_opts:
+       o: bind
+       type: none
+       device: /srv/docker/openfire/newcerts
+       

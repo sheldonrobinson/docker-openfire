@@ -13,6 +13,10 @@ LABEL maintainer="Sheldon Robinson <sheldon.robinson@gmail.com>" \
       org.opencontainers.image.vendor="SJ Robinson Consulting" \
       org.opencontainers.image.source="https://github.com/sheldonrobinson/docker-openfire"
 
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm \
+    OPENFIRE_HOME=/var/lib/openfire
+
+    
 RUN echo "Updating package list ..." \
  && apk update \
  && echo "Installing openfire and dependencies ..." \
@@ -20,9 +24,6 @@ RUN echo "Updating package list ..." \
  && apk add --no-cache --upgrade openfire openfire-plugins \
  && echo "Clear cache and fix missing .." \
  && apk cache -v sync 
-
-ENV JAVA_HOME=/usr/lib/jvm/default-jvm \
-    OPENFIRE_HOME=/var/lib/openfire
 
 ENV OPENFIRE_OPTS="-server -DopenfireHome=${OPENFIRE_HOME} -Dopenfire.lib.dir=${OPENFIRE_HOME}/lib -classpath ${OPENFIRE_HOME}/lib/startup.jar"
 
@@ -45,9 +46,14 @@ ADD --chown=openfire:openfire --chmod=644 https://igniterealtime.org/projects/op
  https://igniterealtime.org/projects/openfire/plugins/1.7.4/search.jar \
  /var/lib/openfire/plugins/
 
+
+RUN echo "Creating logs files ..." 
+RUN mkdir -p /var/lib/openfire/logs touch /var/lib/openfire/logs/openfire.log  && chown -R openfire /var/lib/openfire/logs && chgrp -R openfire /var/lib/openfire/logs
+RUN touch /var/log/openfire.log && chown openfire /var/log/openfire.log && chgrp openfire /var/log/openfire.log
+
 RUN echo "OPENFIRE_OPTS=${OPENFIRE_OPTS}"
 RUN echo "JAVA_OPTS=${JAVA_OPTS}"
 
+VOLUME ["${OPENFIRE_HOME}/conf", "${OPENFIRE_HOME}/logs", "${OPENFIRE_HOME}/lib", "${OPENFIRE_HOME}/resources/security/hotdeploy", "/var/log"]
 EXPOSE 5222/tcp 5223/tcp 5229/tcp 5262/tcp 5263/tcp 5275/tcp 5276/tcp 7070/tcp 7443/tcp 7777/tcp 9090/tcp 9091/tcp
-VOLUME ["${OPENFIRE_HOME}/logs/","${OPENFIRE_HOME}/resources/security/hotdeploy/"."/var/log/"]
-ENTRYPOINT ["sh", "-c","${JAVA_HOME}/bin/java ${JAVA_OPTS} ${OPENFIRE_OPTS} -jar ${OPENFIRE_HOME}/lib/startup.jar" ]
+ENTRYPOINT ["sh", "-c", "${JAVA_HOME}/bin/java ${JAVA_OPTS} ${OPENFIRE_OPTS} -jar ${OPENFIRE_HOME}/lib/startup.jar" ]
