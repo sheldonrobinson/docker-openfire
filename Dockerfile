@@ -20,7 +20,7 @@ ENV JAVA_HOME=/usr/lib/jvm/default-jvm \
 RUN echo "Updating package list ..." \
  && apk update \
  && echo "Installing openfire and dependencies ..." \
- && apk add --no-cache --upgrade openrc openjdk17-jre-headless java-postgresql-jdbc \
+ && apk add --no-cache --upgrade openjdk17-jre-headless java-postgresql-jdbc \
  && apk add --no-cache --upgrade openfire openfire-plugins \
  && echo "Clear cache and fix missing .." \
  && apk cache -v sync 
@@ -48,7 +48,7 @@ ADD --chown=openfire:openfire --chmod=644 https://igniterealtime.org/projects/op
 
 
 RUN echo "Creating logs files ..." 
-RUN mkdir -p /var/lib/openfire/logs touch /var/lib/openfire/logs/openfire.log  && chown -R openfire /var/lib/openfire/logs && chgrp -R openfire /var/lib/openfire/logs
+RUN mkdir -p /var/lib/openfire/logs && touch /var/lib/openfire/logs/openfire.log  && chown -R openfire /var/lib/openfire/logs && chgrp -R openfire /var/lib/openfire/logs
 RUN touch /var/log/openfire.log && chown openfire /var/log/openfire.log && chgrp openfire /var/log/openfire.log
 
 RUN echo "OPENFIRE_OPTS=${OPENFIRE_OPTS}"
