@@ -29,6 +29,7 @@ ENV OPENFIRE_OPTS="-server -DopenfireHome=${OPENFIRE_HOME} -Dopenfire.lib.dir=${
 
 ARG JAVA_OPTS="-Xmx4G -Xms4G -XX:NewRatio=1 -XX:SurvivorRatio=4 -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:CMSFullGCsBeforeCompaction=1 -XX:CMSInitiatingOccupancyFraction=80 -XX:+UseCMSInitiatingOccupancyOnly"
  
+ADD --chown=openfire:openfire --chmod=644 https://sourceforge.net/projects/openfire-llm-chatbot-plugin/files/v0.2.7/chatbot.jar/download /var/lib/openfire/plugins/chatbot.jar
 ADD --chown=openfire:openfire --chmod=644 https://igniterealtime.org/projects/openfire/plugins/1.0.0/authfiltersanitizer.jar \
  https://igniterealtime.org/projects/openfire/plugins/1.0.1/avatarResizer.jar \
  https://igniterealtime.org/projects/openfire/plugins/1.1.1/bookmarks.jar \
